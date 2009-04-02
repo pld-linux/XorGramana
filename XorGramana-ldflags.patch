@@ -1,0 +1,11 @@
+--- XorGramana-0.0.8/Makefile~	2009-04-02 13:10:57.000000000 +0200
++++ XorGramana-0.0.8/Makefile	2009-04-02 13:10:55.000000000 +0200
+@@ -30,7 +30,7 @@
+ HEADERS:= $(wildcard *.h)
+ 
+ $(PROG): $(OBJS)
+-	$(CC) $(CFLAGS) $(OBJS) -o $(PROG) $(SDL_LDFLAGS)
++	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $(PROG) $(LIBS)
+ 	
+ %.o : %.c $(HEADERS)
+ 	$(CC) $(CFLAGS) -c $<
