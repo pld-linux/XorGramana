@@ -11,6 +11,7 @@ Patch0:		%{name}-ldflags.patch
 URL:		http://www.jwm-art.net/XorGramana/
 BuildRequires:	OpenGL-GLU-devel
 BuildRequires:	SDL_image-devel
+BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,12 +30,13 @@ inne wybuchają, a jeszcze inne mogą zabić gracza.
 %prep
 %setup -q
 %patch0 -p1
+%{__sed} -i -e 's#GFX/#%{_datadir}/%{name}/GFX/#' icons.c
 
 %build
 SDL_CFLAGS=$(sdl-config --cflags)
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} $SDL_CFLAGS -DDATADIR=\'%{_datadir}/%{name}\'" \
+	CFLAGS="%{rpmcflags} $SDL_CFLAGS -DDATADIR=\\\"%{_datadir}/%{name}/\\\"" \
 	LDFLAGS="%{rpmldflags}" \
 	LIBS="-lGLU -lSDL_image"
 
